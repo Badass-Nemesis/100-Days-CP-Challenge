@@ -3,6 +3,9 @@
 import java.util.*;
 
 public class Qes2 {
+    // sir isme while loop mein likhe the code, aur hum apna dimaag bech ke
+    // recursion use kar rahe h
+    
     public static String columnWalaName;
 
     public static void dumbRecursion(int columnNumber) {
@@ -11,7 +14,7 @@ public class Qes2 {
         }
         int remainder = columnNumber % 26;
         // System.out.println(remainder); // debugging
-        
+
         if (remainder == 0) {
             columnWalaName = "Z" + columnWalaName;
             columnNumber--; // ye minus is very important. agar ni likhenge to fir ek extra letter add ho
