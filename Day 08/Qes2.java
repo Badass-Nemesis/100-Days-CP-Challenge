@@ -1,10 +1,18 @@
+// Question -> https://codeforces.com/contest/1713/problem/B
+
 import java.util.*;
 import java.io.*;
 
-public class Snippet {
+public class Qes2 {
 
     public static void solve() throws IOException {
-
+        // int count = 0;
+        int n = in.nextInt();
+        int[] arr = new int[n];
+        for (int i = 0; i < n - 1; i++) {
+            arr[i] = in.nextInt();
+        }
+        
     }
 
     public static void main(String[] args) throws IOException {
