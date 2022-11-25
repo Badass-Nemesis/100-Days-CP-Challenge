@@ -1,36 +1,52 @@
-// Question -> https://codeforces.com/problemset/problem/1088/B
+// Question -> https://codeforces.com/problemset/problem/1741/C?f0a28=1
 
 import java.util.*;
 import java.io.*;
 
 public class Qes1 {
 
-    public static void solve(int n) throws IOException {
-        int k = in.nextInt();
-        PriorityQueue<Integer> pq = new PriorityQueue<>();
+    public static void solve() throws IOException {
+        int n = in.nextInt();
+        long[] arr = new long[n];
+        long[] prefixSum = new long[n];
         for (int i = 0; i < n; i++) {
-            int temp = in.nextInt();
-            pq.add(temp);
-        }
-
-        int minus = 0;
-        while (pq.size() > 0 && pq.peek() <= 0) {
-            pq.remove();
-        }
-        for (int i = 0; i < k; i++) {
-            if (pq.size() > 0) {
-                // I need to re-understand the logic of this if block.
-                int temp = pq.remove();
-                System.out.println(temp - minus);
-                minus += temp - minus;
-                while (pq.size() > 0 && pq.peek() - minus <= 0) {
-                    pq.remove();
-                }
-                // upto this line
+            arr[i] = in.nextLong();
+            if (i == 0) {
+                prefixSum[i] = arr[i];
             } else {
-                System.out.println(0);
+                prefixSum[i] = arr[i] + prefixSum[i - 1];
             }
         }
+
+        // don't take ans = 0. n lene se easy rahega ki humko less thickness wala lene
+        // mein problem ni hoga, aur agar kabhi less thickness aayega hi ni to fir sidhe
+        // yahi max length of array hi return kar denge
+        int ans = n;
+
+        for (int i = 0; i < n; i++) {
+            long temp = prefixSum[i];
+            temp += temp; // because agar temp 6 h, to humlog ko 12 dhundhna h prefix sum mein, taaki
+                          // divide kar sake
+
+            int current = i + 1;
+            int last = i;
+            while (binary_search(prefixSum, i, n, temp) > 0) {
+                int index = binary_search(prefixSum, i, n, temp);
+
+                // need to learn the logic + code below this
+                temp += prefixSum[i];
+                current = Math.max(current, index - last);
+                last = index;
+                // upto this
+            }
+
+            if (last == (n - 1)) {
+                ans = Math.min(ans, current);
+            }
+        }
+
+        System.out.println(ans);
+
     }
 
     public static void main(String[] args) throws IOException {
@@ -38,10 +54,9 @@ public class Qes1 {
         out = new PrintWriter(new OutputStreamWriter(System.out));
 
         int t = in.nextInt();
-        solve(t);
-        // for (int i = 0; i < t; i++) {
-        // solve();
-        // }
+        for (int i = 0; i < t; i++) {
+            solve();
+        }
 
         out.flush();
         in.close();
@@ -120,6 +135,24 @@ public class Qes1 {
             ans = (ans * now) % mod;
         }
         return ans;
+    }
+
+    // private static int binary_search(int[] arr, int left, int right, int target){
+    private static int binary_search(long[] arr, int left, int right, long target) {
+        if (left <= right && left <= arr.length - 1) {
+            int mid = left + (right - left) / 2;
+            if (arr[mid] == target) {
+                return mid;
+            }
+
+            if (arr[mid] > target) {
+                return binary_search(arr, left, mid - 1, target);
+            } else if (arr[mid] < target) {
+                return binary_search(arr, mid + 1, right, target);
+            }
+        }
+
+        return -1;
     }
 
     @SuppressWarnings("FieldCanBeLocal")

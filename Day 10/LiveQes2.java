@@ -1,36 +1,121 @@
-// Question -> https://codeforces.com/problemset/problem/1088/B
+// Question -> https://codeforces.com/contest/1759/problem/E
 
 import java.util.*;
 import java.io.*;
 
-public class Qes1 {
+public class LiveQes2 {
 
-    public static void solve(int n) throws IOException {
-        int k = in.nextInt();
-        PriorityQueue<Integer> pq = new PriorityQueue<>();
-        for (int i = 0; i < n; i++) {
-            int temp = in.nextInt();
-            pq.add(temp);
+    /*
+     * #include <bits/stdc++.h>
+     * using namespace std;
+     * int solve(int n,long long int power,int arr[],int g,int b,int i){
+     * int index = i;
+     * while(index<n && power>arr[index]){
+     * power+=arr[index]/2;
+     * index++;
+     * }
+     * if(i==n){
+     * return n;
+     * }
+     * 
+     * if(g==0 && b==0){
+     * return index;
+     * }
+     * int ans = 0;
+     * if(g>=1){
+     * ans = solve(n,power*2,arr,g-1,b,index);
+     * }
+     * int ans1 = 0;
+     * if(b>=1){
+     * ans1 = solve(n,power*3,arr,g,b-1,index);
+     * }
+     * return max(ans,ans1);
+     * 
+     * }
+     * int main(){
+     * int t;
+     * cin>>t;
+     * 
+     * while(t--){
+     * 
+     * int n;
+     * cin>>n;
+     * long long int power;
+     * cin>>power;
+     * int arr[n];
+     * for(int i=0;i<n;i++){
+     * cin>>arr[i];
+     * }
+     * sort(arr,arr+n);
+     * int ans =solve(n,power,arr,2,1,0);
+     * cout<<ans<<endl;
+     * }
+     * }
+     */
+
+    public static int solve2(int n, long power, long[] arr, int green, int blue, int i) throws IOException {
+        // System.out.println("i = " + i); // debug
+        int index = i;
+        while (index < n && power > arr[index]) {
+            power += (arr[index] / 2);
+            index++;
         }
 
-        int minus = 0;
-        while (pq.size() > 0 && pq.peek() <= 0) {
-            pq.remove();
+        if (i == n) {
+            return n;
         }
-        for (int i = 0; i < k; i++) {
-            if (pq.size() > 0) {
-                // I need to re-understand the logic of this if block.
-                int temp = pq.remove();
-                System.out.println(temp - minus);
-                minus += temp - minus;
-                while (pq.size() > 0 && pq.peek() - minus <= 0) {
-                    pq.remove();
+
+        if (green == 0 && blue == 0) {
+            // System.out.println("index " + index); // debug
+            return index;
+        }
+
+        int ans = 0;
+        // System.out.println("green pre " + green); // debug
+        if (green > 0) {
+            ans = solve2(n, power * 2, arr, green - 1, blue, index);
+            // System.out.println("ans  = " + ans); // debug
+        }
+        // System.out.println("green post " + green); // debug
+
+        int ans1 = 0;
+        // System.out.println("blue pre " + blue); // debug
+        if (blue > 0) {
+            ans1 = solve2(n, power * 3, arr, green, blue - 1, index);
+            // System.out.println("ans1 = " + ans1); // debug
+        }
+        // System.out.println("blue post " + blue); // debug
+
+        return Math.max(ans1, ans);
+    }
+
+    public static void solve(int n, long power, long[] arr, ArrayList<ArrayList<Integer>> serum)
+            throws IOException {
+        int ans = 0; // for max consume count
+
+        for (int i = 0; i < 3; i++) {
+            int index = 0;
+            int count = 0; // for temporary consume count
+            long tempPower = power;
+            for (int j = 0; j < n; j++) {
+                if (tempPower > arr[j]) {
+                    tempPower = tempPower + (arr[j] / 2);
+                    count++;
+                } else {
+                    if (index == 3) {
+                        break;
+                    }
+                    tempPower = tempPower * serum.get(i).get(index);
+                    // System.out.println(i + " " + serum.get(i).get(index) + " " + index);
+                    j--;
+                    index++;
                 }
-                // upto this line
-            } else {
-                System.out.println(0);
             }
+            // System.out.println(count);
+            ans = Math.max(count, ans);
         }
+
+        System.out.println(ans);
     }
 
     public static void main(String[] args) throws IOException {
@@ -38,10 +123,41 @@ public class Qes1 {
         out = new PrintWriter(new OutputStreamWriter(System.out));
 
         int t = in.nextInt();
-        solve(t);
-        // for (int i = 0; i < t; i++) {
-        // solve();
+        ArrayList<ArrayList<Integer>> serum = new ArrayList<>();
+        ArrayList<Integer> serum1 = new ArrayList<>(); // 3 2 2
+        serum1.add(2);
+        serum1.add(2);
+        serum1.add(3);
+        serum.add(serum1);
+        ArrayList<Integer> serum2 = new ArrayList<>(); // 2 3 2
+        serum2.add(2);
+        serum2.add(3);
+        serum2.add(2);
+        serum.add(serum2);
+        ArrayList<Integer> serum3 = new ArrayList<>(); // 2 2 3
+        serum3.add(3);
+        serum3.add(2);
+        serum3.add(2);
+        serum.add(serum3);
+
+        // int temp = 0;
+        // for (int i = 0; i < serum.get(temp).size(); i++) {
+        // System.out.println(serum.get(temp).get(i));
         // }
+        for (int i = 0; i < t; i++) {
+            int astro = in.nextInt();
+            long power = in.nextLong();
+            long[] arr = new long[astro];
+            for (int j = 0; j < astro; j++) {
+                arr[j] = in.nextLong();
+            }
+            Arrays.sort(arr);
+            // int green = 2;
+            // int blue = 1;
+            // int ans = solve(astro, power, arr, green, blue, 0);
+            // System.out.println(ans);
+            solve(astro, power, arr, serum);
+        }
 
         out.flush();
         in.close();

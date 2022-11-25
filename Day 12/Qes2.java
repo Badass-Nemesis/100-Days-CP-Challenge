@@ -1,36 +1,12 @@
-// Question -> https://codeforces.com/problemset/problem/1088/B
+// Question -> https://codeforces.com/problemset/problem/1717/B?f0a28=3
 
 import java.util.*;
 import java.io.*;
 
-public class Qes1 {
+public class Qes2 {
 
-    public static void solve(int n) throws IOException {
-        int k = in.nextInt();
-        PriorityQueue<Integer> pq = new PriorityQueue<>();
-        for (int i = 0; i < n; i++) {
-            int temp = in.nextInt();
-            pq.add(temp);
-        }
-
-        int minus = 0;
-        while (pq.size() > 0 && pq.peek() <= 0) {
-            pq.remove();
-        }
-        for (int i = 0; i < k; i++) {
-            if (pq.size() > 0) {
-                // I need to re-understand the logic of this if block.
-                int temp = pq.remove();
-                System.out.println(temp - minus);
-                minus += temp - minus;
-                while (pq.size() > 0 && pq.peek() - minus <= 0) {
-                    pq.remove();
-                }
-                // upto this line
-            } else {
-                System.out.println(0);
-            }
-        }
+    public static void solve() throws IOException {
+        
     }
 
     public static void main(String[] args) throws IOException {
@@ -38,10 +14,9 @@ public class Qes1 {
         out = new PrintWriter(new OutputStreamWriter(System.out));
 
         int t = in.nextInt();
-        solve(t);
-        // for (int i = 0; i < t; i++) {
-        // solve();
-        // }
+        for (int i = 0; i < t; i++) {
+            solve();
+        }
 
         out.flush();
         in.close();

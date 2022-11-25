@@ -5,14 +5,104 @@ import java.io.*;
 
 public class Qes2 {
 
+    public static void solve2() throws IOException {
+        int n = in.nextInt();
+        int[] array = new int[n];
+        for (int i = 0; i < n; i++) {
+            array[i] = in.nextInt();
+        }
+
+        ArrayList<Integer> arr = new ArrayList<>();
+        arr.add(array[0]);
+        for (int i = 1; i < n; i++) {
+            if (array[i] != array[i - 1]) {
+                arr.add(array[i]);
+            }
+        }
+
+        n = arr.size();
+
+        if (n == 1) {
+            System.out.println("YES");
+            return;
+        }
+
+        int count = 0;
+        for (int i = 0; i < n; i++) {
+            if (i == 0) {
+                if (arr.get(i) > arr.get(i + 1)) {
+                    count++;
+                }
+            } else if (i < n - 1) {
+                if (arr.get(i) >= arr.get(i - 1) && arr.get(i) >= arr.get(i + 1)) {
+                    count++;
+                }
+            } else {
+                if (arr.get(i) > arr.get(i - 1)) {
+                    count++;
+                }
+            }
+
+            if (count > 1) {
+                System.out.println("NO");
+                return;
+            }
+        }
+
+        System.out.println("YES");
+        return;
+    }
+
     public static void solve() throws IOException {
-        // int count = 0;
         int n = in.nextInt();
         int[] arr = new int[n];
-        for (int i = 0; i < n - 1; i++) {
+        for (int i = 0; i < n; i++) {
             arr[i] = in.nextInt();
         }
-        
+
+        if (n == 1) {
+            System.out.println("YES");
+            return;
+        }
+
+        int i = 1;
+
+        // funfact -> don't do this. it'll give you runtime error. instead, start from
+        // i=1 and check the i-1 element
+        //
+        // while (i < n && arr[i] <= arr[i + 1]) {
+        // i++;
+        // }
+        //
+        // while (i + 1 < n && arr[i] >= arr[i + 1]) {
+        // i++;
+        // }
+
+        // checking for increasing order
+        // isme humlog ek element peeche ka dekh rahe h
+        while (i < n && arr[i] >= arr[i - 1]) {
+            i++;
+        }
+
+        // upar wala while loop tuuta iska matlab aisa index pe pahuch gaye h hum jiske
+        // peeche wala element chota ni h. to agar check karna hi h to abhi jo i h mera,
+        // uske aage wala check karenge, taaki mera i++ sahi se ho.
+
+        // checking for decreasing order
+        // isme humlog aage ka element check kar rahe h
+        while (i + 1 < n && arr[i] >= arr[i + 1]) {
+            i++;
+        }
+
+        // for testcase 1 2 3, mera increasing wala check karne ke baad wo i=3 de dega.
+        // to isiliye humko i>=n-1 karna pada h.
+        if (i >= n - 1) {
+            System.out.println("YES");
+        } else {
+            System.out.println("NO");
+        }
+
+        return;
     }
 
     public static void main(String[] args) throws IOException {
