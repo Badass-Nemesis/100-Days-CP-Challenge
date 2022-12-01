@@ -18,7 +18,7 @@ public class LiveQes3 {
         }
 
         if (nthTermOfGP < computers) {
-            ans += (computers - nthTermOfGP + cables - 1) / cables;
+            ans += (computers - nthTermOfGP + cables - 1) / cables; // ye basically lower bound leke +1 kar rahe h
         }
 
         System.out.println(ans);

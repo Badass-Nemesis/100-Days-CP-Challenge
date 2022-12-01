@@ -1,4 +1,5 @@
 // Question -> https://codeforces.com/contest/1684/problem/B
+// purely observation based qes h ye
 
 import java.util.*;
 // import java.io.*;

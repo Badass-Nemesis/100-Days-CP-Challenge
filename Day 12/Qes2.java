@@ -1,4 +1,4 @@
-// Question -> https://codeforces.com/problemset/problem/1717/B?f0a28=3
+// Question -> https://codeforces.com/problemset/problem/1717/B
 
 import java.util.*;
 import java.io.*;

@@ -17,16 +17,17 @@ public class Qes1 {
         while (pq.size() > 0 && pq.peek() <= 0) {
             pq.remove();
         }
+
         for (int i = 0; i < k; i++) {
             if (pq.size() > 0) {
-                // I need to re-understand the logic of this if block.
                 int temp = pq.remove();
                 System.out.println(temp - minus);
-                minus += temp - minus;
+                minus += temp - minus; // pehle jo jo minus kiye the usko minus variable mein hi accumulate karte
+                                       // jayenge, taaki aage minus agar kare to jo sabse pehle minus kiye the, wo bhi
+                                       // minus ke time included rahe
                 while (pq.size() > 0 && pq.peek() - minus <= 0) {
                     pq.remove();
                 }
-                // upto this line
             } else {
                 System.out.println(0);
             }

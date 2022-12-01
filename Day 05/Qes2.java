@@ -18,7 +18,7 @@ public class Qes2 {
                 for (int k = 0; k < column / 2; k++) {
                     // ye if block ka matlab hua ki first row aur fourth row, dono same rahega
                     // aur second row and third row same rahega. because of mirroring
-                    if (j % 4 == 0) {
+                    if (j % 4 == 0 || j % 4 == 3) {
                         if (k % 2 == 0) {
                             System.out.print(original);
                         } else {

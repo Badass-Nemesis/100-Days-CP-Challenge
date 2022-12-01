@@ -6,60 +6,6 @@ import java.io.*;
 
 public class Qes1 {
 
-    // public static void solve(int m, int sum, int[] arr, HashMap<Integer, Integer>
-    // hm) {
-    // int pairs = 0;
-    // double sumTwo = (sum * 2.0) / m*1.0;
-    // // System.out.println(sumTwo + " " + m);
-    // if ((int) sumTwo != sumTwo) {
-    // System.out.println(0);
-    // return;
-    // }
-
-    // int need = (sum * 2) / m;
-
-    // Set<Integer> keys = hm.keySet();
-    // for (Integer key : keys) {
-    // int frequency = hm.get(key);
-    // if (hm.containsKey(need - key)) {
-    // if (key == (need - key) && hm.get(key) > 2) {
-    // pairs = frequency * (frequency - 1); // nC2 * 2
-    // } else if (key != (need - key)) {
-    // pairs += frequency * hm.get(need - key);
-    // }
-    // }
-    // }
-
-    // System.out.println(pairs / 2);
-    // return;
-    // }
-
-    // public static void main(String[] args) {
-    // Scanner scn = new Scanner(System.in);
-    // int n = scn.nextInt();
-
-    // for (int i = 0; i < n; i++) {
-    // int m = scn.nextInt();
-    // int[] arr = new int[m];
-    // HashMap<Integer, Integer> hm = new HashMap<>();
-    // int sum = 0;
-    // for (int j = 0; j < m; j++) {
-    // arr[j] = scn.nextInt();
-    // sum += arr[j];
-    // if (hm.containsKey(arr[j])) {
-    // int frequency = hm.get(arr[j]) + 1;
-    // hm.put(arr[j], frequency);
-    // } else {
-    // hm.put(arr[j], 1);
-    // }
-    // }
-
-    // solve(m, sum, arr, hm);
-    // }
-    // scn.close();
-    // }
-    // }
-
     public static void solve() throws IOException {
         int n = in.nextInt();
         double[] arr = new double[n];
@@ -88,11 +34,12 @@ public class Qes1 {
             double other = (double) sum_2_elements - val;
 
             if (curr == other) {
-                ans += (fmap.get(val) * (fmap.get(val) - 1)) / 2;
+                ans += (fmap.get(val) * (fmap.get(val) - 1)) / 2; // nC2 h ye basically
                 // fmap.remove(val);
                 fmap.put(val, (long) 0);
             } else if (curr < other && fmap.containsKey(other)) {
-                ans += fmap.get(val) * fmap.get(other);
+                ans += fmap.get(val) * fmap.get(other); // agar koi number ka freq jyada hua, tab n * m pairs banega,
+                                                        // wahi likhe h idhar
             }
         }
         System.out.println(ans);

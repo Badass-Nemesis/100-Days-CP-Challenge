@@ -1,39 +1,10 @@
-// Question - https://codeforces.com/problemset/problem/1741/B
-
 import java.util.*;
 import java.io.*;
 
-public class LiveQes2 {
+public class test {
 
     public static void solve() throws IOException {
-        int n = in.nextInt();
-
-        // common sense + testcase -> 3 pe katai ni hoga
-        if (n == 3) {
-            System.out.println(-1);
-            return;
-        }
-
-        // agar even hua tab to direct ulta print
-        if (n % 2 == 0) {
-            for (int i = n; i > 0; i--) {
-                System.out.print(i + " ");
-            }
-        } else {
-            // pehle limit le lenge, ki kaha tak ulta print kar sakte h. basically limit
-            // mera ye calculated limit-1 h
-            int limit = (n + 1) / 2;
-
-            for (int i = n; i > limit; i--) {
-                System.out.print(i + " ");
-            }
-
-            for (int i = 1; i <= limit; i++) {
-                System.out.print(i + " ");
-            }
-        }
-
-        System.out.println();
+        
     }
 
     public static void main(String[] args) throws IOException {
@@ -41,6 +12,7 @@ public class LiveQes2 {
         out = new PrintWriter(new OutputStreamWriter(System.out));
 
         int t = in.nextInt();
+        // solve(t);
         for (int i = 0; i < t; i++) {
             solve();
         }

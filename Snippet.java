@@ -12,6 +12,7 @@ public class Snippet {
         out = new PrintWriter(new OutputStreamWriter(System.out));
 
         int t = in.nextInt();
+        // solve(t);
         for (int i = 0; i < t; i++) {
             solve();
         }

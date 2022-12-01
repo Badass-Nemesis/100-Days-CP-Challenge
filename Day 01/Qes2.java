@@ -19,14 +19,15 @@ public class Qes2 {
         for (int i = 0; i < nums.length; i++) {
             int gcd = nums[i];
             for (int j = i; j < nums.length; j++) {
-                if (gcd < k) {
-                    break;
-                }
 
                 gcd = gcdFind(nums[j], gcd);
 
                 if (gcd == k) {
                     number++;
+                }
+
+                if (gcd < k) {
+                    break;
                 }
             }
         }
