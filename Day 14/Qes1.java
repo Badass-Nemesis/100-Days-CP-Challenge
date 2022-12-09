@@ -6,7 +6,7 @@ import java.io.*;
 public class Qes1 {
 
     public static void solve() throws IOException {
-
+        
     }
 
     public static void main(String[] args) throws IOException {

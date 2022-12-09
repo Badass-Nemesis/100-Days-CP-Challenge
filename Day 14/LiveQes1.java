@@ -1,10 +1,12 @@
+// Question -> https://codeforces.com/problemset/problem/312/B
+
 import java.util.*;
 import java.io.*;
 
-public class Snippet {
+public class LiveQes1 {
 
     public static void solve() throws IOException {
-        
+
     }
 
     public static void main(String[] args) throws IOException {
