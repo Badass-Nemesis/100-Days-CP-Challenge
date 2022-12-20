@@ -1,5 +1,5 @@
-import java.util.*;
 import java.io.*;
+import java.util.*;
 
 public class Snippet {
 
@@ -22,8 +22,22 @@ public class Snippet {
         out.close();
     }
 
-    static int gcd(int a, int b) {
+    public static class Pair implements Comparable<Pair> {
 
+        long val;
+        int idx;
+
+        public Pair(long val, int idx) {
+            this.val = val;
+            this.idx = idx;
+        }
+
+        public int compareTo(Pair other) {
+            return (int) (this.val - other.val);
+        }
+    }
+
+    static int gcd(int a, int b) {
         // old snippet code
         /*
          * if (a == 0 || b == 0)
@@ -54,7 +68,6 @@ public class Snippet {
             return a;
         }
         return gcd(b, a % b);
-
     }
 
     static final long mod = 1000000007;
@@ -98,6 +111,7 @@ public class Snippet {
 
     @SuppressWarnings("FieldCanBeLocal")
     private static Reader in;
+
     private static PrintWriter out;
 
     static int[] read_int_array(int len) throws IOException {
@@ -133,6 +147,7 @@ public class Snippet {
     }
 
     static class Reader {
+
         private static final int BUFFER_SIZE = 1 << 16;
         private final DataInputStream din;
         private final byte[] buffer;
@@ -172,7 +187,6 @@ public class Snippet {
             int b;
             // noinspection ALL
             while ((b = read()) != -1 && isSpaceChar(b)) {
-                ;
             }
             return b;
         }
@@ -274,6 +288,5 @@ public class Snippet {
         public void close() throws IOException {
             din.close();
         }
-
     }
 }

@@ -8,3 +8,12 @@ Day 16 -> Qes1
 Contest 1771 -> B and C
 Day 17 -> Qes1 + LiveQes1 + LiveQes2
 Contest 1776 -> B (use Set)
+Day 18 -> Qes1 + LiveQes1
+Day 19 -> Qes1 
+This Qes from Codechef -> https://www.codechef.com/problems/BORSTR
+Day 20 -> Qes1
+Contest 1767 -> C and D
+Contest 1762 -> B
+Contest 1763 -> A ka logic, B ka implementation
+Day 21 -> Qes1, LiveQes1, LiveQes2
+Day 22 -> Qes1
