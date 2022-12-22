@@ -6,18 +6,31 @@ import java.io.*;
 public class LiveQes1 {
 
     public static void solve() throws IOException {
-        
+        int a = in.nextInt();
+        int b = in.nextInt();
+        int c = in.nextInt();
+        int d = in.nextInt();
+
+        double probabA = (a * 1.0) / b;
+        double probabADash = 1 - probabA;
+        double probabB = (c * 1.0) / d;
+        double probabBDash = 1 - probabB;
+
+        double totalProbabA = probabA / (1 - probabADash * probabBDash);
+        double totalProbabB = probabADash * probabB / (1 - probabADash * probabBDash);
+
+        System.out.println(totalProbabA / (totalProbabA + totalProbabB));
     }
 
     public static void main(String[] args) throws IOException {
         in = new Reader();
         out = new PrintWriter(new OutputStreamWriter(System.out));
 
-        int t = in.nextInt();
+        // int t = in.nextInt();
         // solve(t);
-        for (int i = 0; i < t; i++) {
-            solve();
-        }
+        // for (int i = 0; i < t; i++) {
+        solve();
+        // }
 
         out.flush();
         in.close();

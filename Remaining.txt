@@ -1,8 +1,8 @@
 Day 09 -> Qes2
 Day 10 -> LiveQes1
 Day 12 -> Qes2
-Day 13 -> LiveQes1
-Day 14 -> Qes1 + LiveQes1
+Day 13 -> LiveQes1 // Done✅
+Day 14 -> Qes1 + LiveQes1 // Done✅
 Day 15 -> Qes1
 Day 16 -> Qes1
 Contest 1771 -> B and C

@@ -6,18 +6,58 @@ import java.io.*;
 public class Qes1 {
 
     public static void solve() throws IOException {
-        
+        String first = in.next();
+        int countPlus = 0;
+        int countMinus = 0;
+        for (int i = 0; i < first.length(); i++) {
+            if (first.charAt(i) == '+') {
+                countPlus++;
+            } else {
+                countMinus++;
+            }
+        }
+        int original = countPlus - countMinus;
+
+        String second = in.next();
+        countPlus = 0;
+        countMinus = 0;
+        int countQes = 0;
+        for (int i = 0; i < second.length(); i++) {
+            if (second.charAt(i) == '+') {
+                countPlus++;
+            } else if (second.charAt(i) == '-') {
+                countMinus++;
+            } else {
+                countQes++;
+            }
+        }
+
+        int numberIGot = countPlus - countMinus;
+        int diff = Math.abs(Math.max(original, numberIGot) - Math.min(original, numberIGot));
+
+        if (diff > countQes || (countQes - diff) % 2 != 0) {
+            System.out.println(0);
+        } else {
+            int totalPorbability = 1 << countQes; // total statespace
+            int probabilityIGot = nCrModp(countQes, diff + (countQes - diff) / 2, (int) mod);
+            // because the diff is all I need for getting to the original value. the rest
+            // needs to be + and - of both equal number (i.e. to make displacement 0, we
+            // need half of the rest to be either + or -, so that automatically the other
+            // half of rest can become it's opposite and make the displacement 0).
+            double ans = (probabilityIGot * 1.0) / totalPorbability;
+            System.out.println(ans);
+        }
     }
 
     public static void main(String[] args) throws IOException {
         in = new Reader();
         out = new PrintWriter(new OutputStreamWriter(System.out));
 
-        int t = in.nextInt();
-        // solve(t);
-        for (int i = 0; i < t; i++) {
-            solve();
-        }
+        // int t = in.nextInt();
+        solve();
+        // for (int i = 0; i < t; i++) {
+        // solve();
+        // }
 
         out.flush();
         in.close();

@@ -5,18 +5,58 @@ import java.io.*;
 
 public class LiveQes1 {
 
-    public static void solve() throws IOException {
-        
+    private static void run() throws IOException {
+        int n = in.nextInt();
+        int[] arr = new int[n];
+
+        int max = Integer.MIN_VALUE;
+        int countMax = 0;
+        for (int i = 0; i < n; i++) {
+            arr[i] = in.nextInt();
+            if (arr[i] > max) {
+                max = arr[i];
+                countMax = 1;
+            } else if (arr[i] == max) {
+                countMax++;
+            }
+        }
+
+        int countSecondMax = 0;
+        for (int i = 0; i < n; i++) {
+            if (arr[i] + 1 == max) {
+                countSecondMax++;
+            }
+        }
+
+        if (countMax > 1) {
+            out.println(fact[n]);
+        } else {
+            long ans = (fact[countSecondMax + 1] - fact[countSecondMax] + mod) % mod;
+            int others = n - countMax - countSecondMax;
+            for (int i = 1; i <= others; i++) {
+                ans = (ans * (countSecondMax + 1 + i)) % mod;
+            }
+            out.println(ans);
+        }
+    }
+
+    private static long[] fact = new long[300000];
+
+    private static void init() {
+        fact[0] = 1;
+        for (int i = 1; i < 300000; i++) {
+            fact[i] = (fact[i - 1] * i) % mod;
+        }
     }
 
     public static void main(String[] args) throws IOException {
         in = new Reader();
         out = new PrintWriter(new OutputStreamWriter(System.out));
 
+        init();
         int t = in.nextInt();
-        // solve(t);
         for (int i = 0; i < t; i++) {
-            solve();
+            run();
         }
 
         out.flush();
@@ -25,41 +65,18 @@ public class LiveQes1 {
     }
 
     private static int gcd(int a, int b) {
-
-        // old snippet code
-        /*
-         * if (a == 0 || b == 0)
-         * return 0;
-         * while (b != 0) {
-         * int tmp;
-         * tmp = a % b;
-         * a = b;
-         * b = tmp;
-         * }
-         * return a;
-         */
-
-        // the code that I understood
-        /*
-         * if (b == 0) {
-         * return a;
-         * }
-         * if (b > a) {
-         * return gcd(b-a, a);
-         * } else {
-         * return gcd(a-b, b);
-         * }
-         */
-
-        // the code that I use
-        if (b == 0) {
-            return a;
+        if (a == 0 || b == 0)
+            return 0;
+        while (b != 0) {
+            int tmp;
+            tmp = a % b;
+            a = b;
+            b = tmp;
         }
-        return gcd(b, a % b);
-
+        return a;
     }
 
-    static final long mod = 1000000007;
+    static final long mod = 998244353;
 
     static long pow_mod(long a, long b) {
         long result = 1;
@@ -70,24 +87,6 @@ public class LiveQes1 {
             b >>= 1;
         }
         return result;
-    }
-
-    private static int nCrModp(int n, int r, int p) {
-        if (r > n - r) {
-            r = n - r;
-        }
-
-        long[] C = new long[r + 1];
-        Arrays.fill(C, 0);
-
-        C[0] = 1;
-        for (int i = 1; i <= n; i++) {
-            for (int j = Math.min(i, r); j > 0; j--) {
-                C[j] = (C[j] + C[j - 1]) % p;
-            }
-        }
-
-        return (int) C[r];
     }
 
     private static long multiplied_mod(long... longs) {
