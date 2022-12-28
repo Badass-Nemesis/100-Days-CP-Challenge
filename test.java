@@ -3,29 +3,76 @@ import java.util.*;
 
 public class test {
 
-    public static void solve() throws IOException {
-        int n = in.nextInt();
-        Set<Integer> set = new HashSet<>();
-        for (int i = 0; i < n; i++) {
-            int temp = in.nextInt();
-            set.add(temp);
+    public static void solve(int[] houses, int[] prefixSum) throws IOException {
+        int amount = in.nextInt();
+        int index = 0;
+        int count = 0;
+
+        // one house can satisfy the need
+        for (int i = 0; i < houses.length; i++) {
+            if (houses[i] == amount) {
+                System.out.println(1);
+                return;
+            }
         }
 
-        if (set.size() >= n / 2) {
-            System.out.println(n / 2);
-        } else {
-            System.out.println(set.size());
+        // to find the first index where we first get the amount, by visiting only
+        // continuous houes
+        for (int i = 0; i < houses.length; i++) {
+            if (prefixSum[i] >= amount) {
+                index = i;
+                count = i + 1;
+                // System.out.println("count = " + count + " index = " + index); // debug
+                break;
+            }
         }
+
+        if (index == houses.length) {
+            // last tak pahuch gaye tab jaake mila humlog ko total amout
+            System.out.println(count);
+            return;
+        }
+
+        if (count == 0) {
+            // mera amount mila hi ni pura traverse karne ke baad bhi, to count still 0
+            // rahega mera
+            System.out.println(0);
+            return;
+        }
+
+        // now we have the first index and continuous houses' count, we now check to
+        // minimize the number of count
+        for (int i = index; i < houses.length; i++) {
+            if (prefixSum[i] - prefixSum[index] >= amount) {
+                // System.out.println(i + " " + index); // debug
+                count = Math.min(count, i - index);
+                index = i;
+            }
+        }
+
+        System.out.println(count);
     }
 
     public static void main(String[] args) throws IOException {
         in = new Reader();
         out = new PrintWriter(new OutputStreamWriter(System.out));
 
+        int house = in.nextInt();
+        int[] houses = new int[house];
+        for (int i = 0; i < house; i++) {
+            houses[i] = in.nextInt();
+        }
+
+        int[] prefixSum = new int[house];
+        prefixSum[0] = houses[0];
+        for (int i = 1; i < house; i++) {
+            prefixSum[i] = prefixSum[i - 1] + houses[i];
+        }
+
         int t = in.nextInt();
         // solve(t);
         for (int i = 0; i < t; i++) {
-            solve();
+            solve(houses, prefixSum);
         }
 
         out.flush();

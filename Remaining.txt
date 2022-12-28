@@ -3,8 +3,8 @@ Day 10 -> LiveQes1
 Day 12 -> Qes2
 Day 13 -> LiveQes1 // Done✅
 Day 14 -> Qes1 + LiveQes1 // Done✅
-Day 15 -> Qes1
-Day 16 -> Qes1
+Day 15 -> Qes1 // Partially Done✅ (got the right ans, but it's giving TLE because of fuqing Java)
+Day 16 -> Qes1 
 Contest 1771 -> B and C
 Day 17 -> Qes1 + LiveQes1 + LiveQes2
 Contest 1776 -> B (use Set)
@@ -17,3 +17,5 @@ Contest 1762 -> B
 Contest 1763 -> A ka logic, B ka implementation
 Day 21 -> Qes1, LiveQes1, LiveQes2
 Day 22 -> Qes1
+Day 24 -> Qes1 + LiveQes1 + LiveQes2
+Day 25 -> Qes1
