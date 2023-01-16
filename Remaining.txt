@@ -4,11 +4,11 @@ Day 12 -> Qes2
 Day 13 -> LiveQes1 // Done✅
 Day 14 -> Qes1 + LiveQes1 // Done✅
 Day 15 -> Qes1 // Partially Done✅ (got the right ans, but it's giving TLE because of fuqing Java)
-Day 16 -> Qes1 
+Day 16 -> Qes1 // Done✅
 Contest 1771 -> B and C
-Day 17 -> Qes1 + LiveQes1 + LiveQes2
+Day 17 -> Qes1 + LiveQes1 + LiveQes2 // Done✅
 Contest 1776 -> B (use Set)
-Day 18 -> Qes1 + LiveQes1
+Day 18 -> Qes1 + LiveQes1 
 Day 19 -> Qes1 
 This Qes from Codechef -> https://www.codechef.com/problems/BORSTR
 Day 20 -> Qes1

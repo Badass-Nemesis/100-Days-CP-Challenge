@@ -4,7 +4,7 @@ import java.util.*;
 public class Snippet {
 
     public static void solve() throws IOException {
-        
+
     }
 
     public static void main(String[] args) throws IOException {
@@ -22,20 +22,20 @@ public class Snippet {
         out.close();
     }
 
-    public static class Pair implements Comparable<Pair> {
+    // public static class Pair implements Comparable<Pair> {
 
-        long val;
-        int idx;
+    // long val;
+    // int idx;
 
-        public Pair(long val, int idx) {
-            this.val = val;
-            this.idx = idx;
-        }
+    // public Pair(long val, int idx) {
+    // this.val = val;
+    // this.idx = idx;
+    // }
 
-        public int compareTo(Pair other) {
-            return (int) (this.val - other.val);
-        }
-    }
+    // public int compareTo(Pair other) {
+    // return (int) (this.val - other.val);
+    // }
+    // }
 
     static int gcd(int a, int b) {
         // old snippet code
