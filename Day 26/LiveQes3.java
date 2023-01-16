@@ -15,7 +15,7 @@ class Solution {
         }
 
         int max = 0;
-        // not selecting any coin an just going till last pile's index
+        // not selecting any coin and just going till last pile's index
         max = Math.max(max, recursion(piles, k, index + 1));
 
         for (int i = 0; i < piles.get(index).size(); i++) {
