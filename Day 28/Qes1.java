@@ -1,58 +1,37 @@
-// Question -> https://practice.geeksforgeeks.org/problems/rod-cutting0840/1
+// Question -> https://leetcode.com/problems/wildcard-matching/
 
-// my solution
+import java.util.*;
+
 class Solution {
-    static int[] dpArr;
-
-    static int recursion(int[] price, int length, int index) {
-        if (length <= 0 || index - length == 0) {
-            return 0;
+    public boolean isMatch(String s, String p) {
+        boolean[][] dpArr = new boolean[s.length() + 1][p.length() + 1];
+        for (int i = 0; i <= s.length(); i++) {
+            Arrays.fill(dpArr[i], false);
         }
+        dpArr[0][0] = true;
 
-        if (dpArr[length] != -1) {
-            return dpArr[length];
-        }
-
-        int ans1 = 0;
-        if (length - index - 1 >= 0) {
-            ans1 = price[index] + recursion(price, length - index - 1, index);
-        }
-        int ans2 = recursion(price, length, index + 1);
-
-        return dpArr[length] = Math.max(ans1, ans2);
-    }
-
-    public int cutRod(int price[], int n) {
-        dpArr = new int[1001];
-        for (int i = 0; i < 1001; i++) {
-            dpArr[i] = -1;
-        }
-
-        return recursion(price, n, 0);
-    }
-}
-
-// sumeet sir's solution
-class Solution2 {
-    public int cutRod(int price[], int n) {
-        int[] dpArr = new int[n + 1];
-        dpArr[0] = 0;
-        dpArr[1] = price[0];
-
-        for (int i = 2; i <= n; i++) {
-            int tempAns = price[i - 1];
-
-            int leftIndex = 1;
-            int rightIndex = i - 1;
-            while (leftIndex <= rightIndex) {
-                tempAns = Math.max(tempAns, dpArr[leftIndex] + dpArr[rightIndex]);
-                leftIndex++;
-                rightIndex--;
+        // basically marking all the places true, if we get string like this -> s= 'ab'
+        // p= '******a'. then for the case (previous to a in s), we need to mark all of
+        // the continuous star indexes as true.
+        for (int i = 1; i <= p.length(); i++) {
+            if (p.charAt(i - 1) != '*') {
+                break;
             }
-
-            dpArr[i] = tempAns;
+            dpArr[0][i] = true;
         }
 
-        return dpArr[n];
+        for (int i = 1; i <= s.length(); i++) {
+            for (int j = 1; j <= p.length(); j++) {
+                if (p.charAt(j - 1) == '*') {
+                    dpArr[i][j] = dpArr[i - 1][j] || dpArr[i][j - 1] || dpArr[i - 1][j - 1];
+                } else if (s.charAt(i - 1) != p.charAt(j - 1) && p.charAt(j - 1) != '?') {
+                    dpArr[i][j] = false;
+                } else {
+                    dpArr[i][j] = dpArr[i - 1][j - 1];
+                }
+            }
+        }
+
+        return dpArr[s.length()][p.length()];
     }
 }

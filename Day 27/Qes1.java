@@ -1,53 +1,58 @@
-// Question -> https://leetcode.com/problems/ones-and-zeroes/
+// Question -> https://practice.geeksforgeeks.org/problems/rod-cutting0840/1
 
+// my solution
 class Solution {
-    static Integer[][][] dpArr;
+    static int[] dpArr;
 
-    static int countOnes(String s) {
-        int count = 0;
-        for (int i = 0; i < s.length(); i++) {
-            if (s.charAt(i) == '1') {
-                count++;
-            }
-        }
-        return count;
-    }
-
-    static int countZeroes(String s) {
-        int count = 0;
-        for (int i = 0; i < s.length(); i++) {
-            if (s.charAt(i) == '0') {
-                count++;
-            }
-        }
-        return count;
-    }
-
-    static int recursion(String[] strs, int index, int remainingOnes, int remainingZeroes) {
-        if (index == strs.length) {
+    static int recursion(int[] price, int length, int index) {
+        if (length <= 0 || index - length == 0) {
             return 0;
         }
 
-        if (dpArr[index][remainingOnes][remainingZeroes] != null) {
-            return dpArr[index][remainingOnes][remainingZeroes];
+        if (dpArr[length] != -1) {
+            return dpArr[length];
         }
 
-        // not pick
-        int notPick = recursion(strs, index + 1, remainingOnes, remainingZeroes);
-
-        int pick = 0;
-        if (remainingOnes >= countOnes(strs[index]) && remainingZeroes >= countZeroes(strs[index])) {
-            pick = 1 + recursion(strs, index + 1, remainingOnes - countOnes(strs[index]),
-                    remainingZeroes - countZeroes(strs[index]));
+        int ans1 = 0;
+        if (length - index - 1 >= 0) {
+            ans1 = price[index] + recursion(price, length - index - 1, index);
         }
+        int ans2 = recursion(price, length, index + 1);
 
-        dpArr[index][remainingOnes][remainingZeroes] = Math.max(pick, notPick);
-
-        return dpArr[index][remainingOnes][remainingZeroes];
+        return dpArr[length] = Math.max(ans1, ans2);
     }
 
-    public int findMaxForm(String[] strs, int m, int n) {
-        dpArr = new Integer[601][101][101];
-        return recursion(strs, 0, n, m);
+    public int cutRod(int price[], int n) {
+        dpArr = new int[1001];
+        for (int i = 0; i < 1001; i++) {
+            dpArr[i] = -1;
+        }
+
+        return recursion(price, n, 0);
+    }
+}
+
+// sumeet sir's solution
+class Solution2 {
+    public int cutRod(int price[], int n) {
+        int[] dpArr = new int[n + 1];
+        dpArr[0] = 0;
+        dpArr[1] = price[0];
+
+        for (int i = 2; i <= n; i++) {
+            int tempAns = price[i - 1];
+
+            int leftIndex = 1;
+            int rightIndex = i - 1;
+            while (leftIndex <= rightIndex) {
+                tempAns = Math.max(tempAns, dpArr[leftIndex] + dpArr[rightIndex]);
+                leftIndex++;
+                rightIndex--;
+            }
+
+            dpArr[i] = tempAns;
+        }
+
+        return dpArr[n];
     }
 }
