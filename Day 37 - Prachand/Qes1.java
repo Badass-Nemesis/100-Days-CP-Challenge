@@ -1,21 +1,109 @@
+// Question -> https://codeforces.com/contest/25/problem/D
+
 import java.io.*;
 import java.util.*;
 
-public class Snippet {
+public class Qes1 {
+    public static int[] parent;
+    public static int[] rank;
+
+    public static int findParent(int x) {
+        if (parent[x] == x) {
+            return x;
+        }
+
+        return parent[x] = findParent(parent[x]);
+    }
+
+    public static void union(int x, int y) {
+        int leaderX = findParent(x);
+        int leaderY = findParent(y);
+
+        if (rank[leaderX] > rank[leaderY]) {
+            parent[leaderY] = leaderX;
+        } else if (rank[leaderX] < rank[leaderY]) {
+            parent[leaderX] = leaderY;
+        } else {
+            parent[leaderY] = leaderX;
+            rank[leaderX]++;
+        }
+    }
+
+    public static class Pair {
+        int x;
+        int y;
+
+        Pair(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+    }
 
     public static void solve() throws IOException {
-        
+        int n = in.nextInt();
+
+        parent = new int[n + 1];
+        for (int i = 0; i <= n; i++) {
+            parent[i] = i;
+        }
+        rank = new int[n + 1];
+        Arrays.fill(rank, 1);
+
+        ArrayList<Pair> cycle = new ArrayList<>();
+        for (int i = 0; i < n - 1; i++) {
+            int x = in.nextInt();
+            int y = in.nextInt();
+
+            if (findParent(x) == findParent(y)) {
+                cycle.add(new Pair(x, y));
+            } else {
+                union(x, y);
+            }
+        }
+
+        System.out.println(cycle.size());
+
+        if (cycle.size() > 0) {
+            Set<Integer> set = new HashSet<>();
+            for (int i = 1; i < n + 1; i++) {
+                int x = findParent(i);
+                set.add(x);
+            }
+            // Stack<Integer> temp = new Stack<>();
+            // set.remove(findParent(cycle.get(0).x));
+
+            int dest = 0;
+            for (Integer val : set) {
+                dest = val;
+                set.remove(val);
+                break;
+            }
+
+            for (int i = 0; i < cycle.size(); i++) {
+                int temp = 0;
+                for (Integer val : set) {
+                    temp = val;
+                    set.remove(val);
+                    break;
+                }
+                System.out.print(cycle.get(i).x + " " + cycle.get(i).y + " ");
+                // int tempPop = temp.pop();
+                System.out.print(dest + " " + temp + " ");
+                System.out.println();
+            }
+        }
+
     }
 
     public static void main(String[] args) throws IOException {
         in = new Reader();
         out = new PrintWriter(new OutputStreamWriter(System.out));
 
-        int t = in.nextInt();
+        // int t = in.nextInt();
         // solve(t);
-        for (int i = 0; i < t; i++) {
-            solve();
-        }
+        // for (int i = 0; i < t; i++) {
+        solve();
+        // }
 
         out.flush();
         in.close();

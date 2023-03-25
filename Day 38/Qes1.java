@@ -1,21 +1,88 @@
+// Question -> https://codeforces.com/contest/1272/problem/E
+
 import java.io.*;
 import java.util.*;
 
-public class Snippet {
+public class Qes1 {
+    public static void bfs(ArrayList<Integer> start, ArrayList<Integer> end, ArrayList<ArrayList<Integer>> al,
+            int[] ans) {
+        int[] dist = new int[ans.length];
+        Arrays.fill(dist, Integer.MAX_VALUE);
+
+        Queue<Integer> q = new ArrayDeque<>();
+        for (Integer val : start) {
+            dist[val] = 0;
+            q.add(val);
+        }
+
+        while (q.size() > 0) {
+            int v = q.remove();
+            for (Integer nbr : al.get(v)) {
+                if (dist[nbr] == Integer.MAX_VALUE) {
+                    dist[nbr] = dist[v] + 1;
+                    q.add(nbr);
+                }
+            }
+        }
+
+        for (Integer val : end) {
+            if (dist[val] != Integer.MAX_VALUE) {
+                ans[val] = dist[val];
+            }
+        }
+    }
 
     public static void solve() throws IOException {
-        
+        int n = in.nextInt();
+        int[] arr = new int[n];
+        ArrayList<Integer> even = new ArrayList<>();
+        ArrayList<Integer> odd = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            arr[i] = in.nextInt();
+            if (arr[i] % 2 == 0) {
+                even.add(i);
+            } else {
+                odd.add(i);
+            }
+        }
+
+        ArrayList<ArrayList<Integer>> al = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            al.add(new ArrayList<>());
+        }
+
+        for (int i = 0; i < n; i++) {
+            int leftIndex = i - arr[i];
+            int rightIndex = i + arr[i];
+
+            if (leftIndex >= 0) {
+                al.get(leftIndex).add(i);
+            }
+            if (rightIndex < n) {
+                al.get(rightIndex).add(i);
+            }
+        }
+
+        int[] ans = new int[n];
+        Arrays.fill(ans, -1);
+
+        bfs(odd, even, al, ans);
+        bfs(even, odd, al, ans);
+        for (int i = 0; i < n; i++) {
+            out.print(ans[i] + " ");
+        }
+        out.println();
     }
 
     public static void main(String[] args) throws IOException {
         in = new Reader();
         out = new PrintWriter(new OutputStreamWriter(System.out));
 
-        int t = in.nextInt();
+        // int t = in.nextInt();
         // solve(t);
-        for (int i = 0; i < t; i++) {
-            solve();
-        }
+        // for (int i = 0; i < t; i++) {
+        solve();
+        // }
 
         out.flush();
         in.close();
